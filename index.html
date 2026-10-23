@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Διαδραστικό κουίζ με 18 προβλήματα διαιρετότητας για τη ΣΤ΄ Δημοτικού.">
+  <title>Οι Ντετέκτιβ της Διαιρετότητας | ΣΤ΄ Δημοτικού</title>
+  <style>
+  :root{--ink:#152744;--muted:#52657d;--accent:#125b92;--teal:#0d806f;--border:#dbe6ed;--paper:#fff;--background:#f1f6fb;--warning:#a3490c;--ok:#08735c}
+  *{box-sizing:border-box}html{font-size:16px}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);background:linear-gradient(145deg,#edf7fb 0%,#f2f2ff 58%,#f9fcfe 100%);min-height:100vh;line-height:1.55}
+  .wrap{width:min(820px,calc(100% - 28px));margin:0 auto;padding:28px 0 46px}
+  .hero{border-radius:25px;padding:28px 30px;background:linear-gradient(120deg,#10294a,#17648b);color:white;box-shadow:0 13px 32px rgba(16,41,74,.16)}
+  .eyebrow{letter-spacing:.12em;text-transform:uppercase;font-size:.76rem;font-weight:800;opacity:.85}
+  h1{font-size:clamp(1.6rem,4vw,2.35rem);line-height:1.15;margin:7px 0 12px;letter-spacing:-.025em}
+  .hero p{margin:0;max-width:640px;color:#e5f6ff}
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 0}
+  .pill{padding:7px 12px;border-radius:999px;background:#ffffff1d;color:white;border:1px solid #ffffff35;font-size:.9rem;font-weight:650}
+  .card{background:var(--paper);border:1px solid var(--border);border-radius:22px;margin-top:18px;padding:24px 28px;box-shadow:0 8px 25px rgba(48,78,118,.06)}
+  .topline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .label{font-size:.84rem;text-transform:uppercase;letter-spacing:.075em;font-weight:850;color:var(--accent)}
+  #level{font-size:.85rem;padding:5px 11px;border:1px solid #cfe6e5;border-radius:99px;background:#ecf7f4;color:#126456;font-weight:750}
+  .bar{height:10px;background:#e8eff5;border-radius:99px;margin:14px 0 9px;overflow:hidden}
+  .bar>div{height:100%;background:linear-gradient(90deg,#159e8b,#1b83b6);width:0%;transition:width .25s ease}
+  .hintsmall{font-size:.86rem;color:var(--muted)}
+  #story{font-size:clamp(1.08rem,2.5vw,1.25rem);font-weight:650;margin:24px 0 21px;line-height:1.65}
+  .entrygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px;margin-bottom:17px}
+  .fieldlabel{display:block;font-weight:750;font-size:.9rem;margin-bottom:7px}
+  .answer{width:100%;background:#fcfdff;padding:14px 15px;border:2px solid #cbdbe8;border-radius:12px;font-size:1.15rem;color:var(--ink);outline:none;font-variant-numeric:tabular-nums}
+  .answer:focus{border-color:#267cb5;box-shadow:0 0 0 4px #267cb523}
+  .answer:disabled{background:#f1f5f9;color:#3b5672}
+  .actions{display:flex;gap:11px;flex-wrap:wrap;align-items:center}
+  button{cursor:pointer;font:inherit;font-weight:750;border-radius:12px;padding:11px 17px;transition:transform .1s ease,background .15s ease}
+  button:active{transform:translateY(1px)}button:focus-visible{outline:3px solid #eda745;outline-offset:2px}
+  .primary{background:#126e91;border:1px solid #126e91;color:white}.primary:hover{background:#0b5775}
+  .secondary{background:white;color:#195b77;border:1px solid #bdd3df}.secondary:hover{background:#eef7fa}
+  .next{background:#157863;color:#fff;border:1px solid #157863}.next:hover{background:#0f634f}
+  button[disabled]{cursor:not-allowed;opacity:.55}
+  #hint{margin:14px 0 0;padding:12px 15px;border:1px dashed #99b8d4;background:#f4faff;border-radius:12px;color:#274864}
+  .feedback{margin-top:16px;padding:14px 16px;border-radius:14px;font-weight:620;border:1px solid transparent}
+  .feedback.ok{background:#eaf8f3;border-color:#afdfcc;color:#095a45}
+  .feedback.no{background:#fff6e9;border-color:#f2cea5;color:#7a4309}
+  .feedback.neutral{background:#edf4fa;border-color:#cbdeed;color:#2c526e}
+  .explanation{font-weight:450;margin-top:8px}
+  .finish{text-align:center;padding:24px 12px 12px}
+  .finish h2{font-size:clamp(1.55rem,3.5vw,2rem);line-height:1.25}
+  .bigscore{font-size:3rem;font-weight:900;color:#126e91;margin:12px 0 4px;font-variant-numeric:tabular-nums}
+  .foot{text-align:center;font-size:.89rem;color:#637188;margin-top:17px}
+  .foot a{color:#175e8a} .hidden{display:none!important}
+  @media(max-width:520px){.wrap{padding-top:12px}.hero{padding:23px 20px;border-radius:18px}.card{padding:20px 18px;border-radius:16px}.actions>button{flex:1 1 100%}.pill{font-size:.82rem}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Μαθηματικά • ΣΤ΄ Δημοτικού</div>
+    <h1>🕵️ Οι Ντετέκτιβ της Διαιρετότητας</h1>
+    <p>18 προβλήματα, 3 επίπεδα δυσκολίας και μικρές υποδείξεις. Σκέψου, υπολόγισε και γράψε εσύ τις απαντήσεις!</p>
+    <div class="stats"><span class="pill" id="score">Βαθμοί: 0 / 36</span><span class="pill" id="finished">Ολοκληρώθηκαν: 0 / 18</span></div>
+  </header>
+  <section class="card" id="game" aria-label="Ερωτήσεις">
+    <div class="topline"><div class="label" id="counter">Πρόβλημα 1 από 18</div><span id="level">Επίπεδο 1</span></div>
+    <div class="bar" aria-hidden="true"><div id="progress"></div></div>
+    <div class="hintsmall">Σωστό με την 1η προσπάθεια: 2 βαθμοί • με τη 2η: 1 βαθμός • με την 3η εμφανίζεται η λύση.</div>
+    <div id="story"></div><div id="fields" class="entrygrid"></div>
+    <div class="actions">
+      <button class="primary" id="check" type="button">Έλεγχος απάντησης</button>
+      <button class="secondary" id="showHint" type="button">💡 Υπόδειξη</button>
+      <button class="next hidden" id="next" type="button">Επόμενο πρόβλημα →</button>
+    </div>
+    <div id="hint" class="hidden"></div>
+    <div class="feedback hidden" role="status" aria-live="polite" id="feedback"></div>
+  </section>
+  <section class="card hidden" id="summary" aria-label="Αποτελέσματα"></section>
+  <div class="foot">Εκπαιδευτική δραστηριότητα για εξάσκηση στα κριτήρια διαιρετότητας • <a href="https://daskalossetaxh.blogspot.com/" target="_blank" rel="noopener noreferrer">Το Ιστολόγιό μας</a><br>Οι απαντήσεις και η βαθμολογία διατηρούνται μόνο όσο η δραστηριότητα είναι ανοικτή στον φυλλομετρητή.</div>
+</main>
+<script>
+'use strict';
+const QUESTIONS=[
+  {
+    "level": 1,
+    "story": "Στην κατάθεση στεφάνου συμμετέχουν 153 μαθητές. Παρατάσσονται σε σειρές των 9 μαθητών, χωρίς να περισσεύει κανείς. Πόσες σειρές σχηματίζονται;",
+    "labels": [
+      "Αριθμός σειρών"
+    ],
+    "answers": [
+      "17"
+    ],
+    "hint": "Έλεγξε πρώτα αν το 153 διαιρείται με το 9 και έπειτα διαίρεσε.",
+    "explanation": "1+5+3=9, επομένως το 153 διαιρείται με το 9. Έχουμε 153 : 9 = 17 σειρές."
+  },
+  {
+    "level": 1,
+    "story": "Έχουμε 355 κιλά κρασιού και δοχεία χωρητικότητας 3 κιλών. Πόσα δοχεία γεμίζουν τελείως και πόσα κιλά περισσεύουν;",
+    "labels": [
+      "Γεμάτα δοχεία",
+      "Κιλά που περισσεύουν"
+    ],
+    "answers": [
+      "118",
+      "1"
+    ],
+    "hint": "Βρες τον μεγαλύτερο πολλαπλάσιο του 3 που δεν ξεπερνά το 355.",
+    "explanation": "355 = 3 × 118 + 1. Γεμίζουν 118 δοχεία και περισσεύει 1 κιλό."
+  },
+  {
+    "level": 1,
+    "story": "Η βιβλιοθήκη δίνει 258 σελιδοδείκτες σε σακουλάκια των 6. Πόσα γεμάτα σακουλάκια φτιάχνονται;",
+    "labels": [
+      "Σακουλάκια"
+    ],
+    "answers": [
+      "43"
+    ],
+    "hint": "Ένας αριθμός διαιρείται με το 6 όταν διαιρείται με το 2 και το 3.",
+    "explanation": "Το 258 τελειώνει σε 8 και 2+5+8=15, άρα διαιρείται με το 6. 258 : 6 = 43."
+  },
+  {
+    "level": 1,
+    "story": "Μια δασκάλα έχει 278 ξυλομπογιές. Πόσες επιπλέον χρειάζεται τουλάχιστον ώστε να τις μοιράσει σε κουτιά των 4, χωρίς να περισσέψει καμία;",
+    "labels": [
+      "Επιπλέον ξυλομπογιές"
+    ],
+    "answers": [
+      "2"
+    ],
+    "hint": "Παρατήρησε τα δύο τελευταία ψηφία: 78. Ποιος είναι ο αμέσως επόμενος αριθμός που διαιρείται με το 4;",
+    "explanation": "278 + 2 = 280. Επειδή το 80 διαιρείται με το 4, αρκούν 2 ακόμη ξυλομπογιές."
+  },
+  {
+    "level": 1,
+    "story": "Ένα σχολείο διαθέτει 513 αυτοκόλλητα και θέλει να τα χωρίσει σε φακέλους των 9, χωρίς υπόλοιπο. Πόσους φακέλους θα ετοιμάσει;",
+    "labels": [
+      "Φάκελοι"
+    ],
+    "answers": [
+      "57"
+    ],
+    "hint": "Έλεγξε το άθροισμα των ψηφίων του 513.",
+    "explanation": "5+1+3=9, συνεπώς 513 : 9 = 57 φάκελοι."
+  },
+  {
+    "level": 1,
+    "story": "Ένας σύλλογος έχει 640 καραμέλες και τις συσκευάζει σε σακουλάκια των 25. Πόσα γεμάτα σακουλάκια φτιάχνει και πόσες καραμέλες περισσεύουν;",
+    "labels": [
+      "Γεμάτα σακουλάκια",
+      "Καραμέλες που περισσεύουν"
+    ],
+    "answers": [
+      "25",
+      "15"
+    ],
+    "hint": "25 × 25 = 625. Σύγκρινε το 625 με το 640.",
+    "explanation": "640 = 25 × 25 + 15. Φτιάχνει 25 γεμάτα σακουλάκια και περισσεύουν 15 καραμέλες."
+  },
+  {
+    "level": 2,
+    "story": "Βρες το μοναδικό ψηφίο που πρέπει να τοποθετήσεις στη θέση □ του αριθμού 7□24, ώστε ο αριθμός να διαιρείται ταυτόχρονα με το 9 και με το 4.",
+    "labels": [
+      "Άγνωστο ψηφίο"
+    ],
+    "answers": [
+      "5"
+    ],
+    "hint": "Τα δύο τελευταία ψηφία είναι ήδη 24. Για το 9, υπολόγισε 7 + □ + 2 + 4.",
+    "explanation": "Το 24 διαιρείται με το 4. Για να ισχύει και το κριτήριο του 9, πρέπει 7+5+2+4=18. Άρα 7.524."
+  },
+  {
+    "level": 2,
+    "story": "Στον αριθμό 5□32 λείπει ένα ψηφίο. Ποιο ψηφίο κάνει τον αριθμό διαιρετό ταυτόχρονα με 4 και 9;",
+    "labels": [
+      "Άγνωστο ψηφίο"
+    ],
+    "answers": [
+      "8"
+    ],
+    "hint": "Το 32 διαιρείται με το 4. Πόσο πρέπει να γίνει το άθροισμα 5+□+3+2;",
+    "explanation": "5+8+3+2=18 και τα τελευταία δύο ψηφία είναι 32. Άρα ο αριθμός είναι 5.832."
+  },
+  {
+    "level": 2,
+    "story": "Στον αριθμό 2□40 λείπει ένα ψηφίο. Ποιο πρέπει να είναι, ώστε ο αριθμός να διαιρείται ταυτόχρονα με το 6 και το 9;",
+    "labels": [
+      "Άγνωστο ψηφίο"
+    ],
+    "answers": [
+      "3"
+    ],
+    "hint": "Ο αριθμός τελειώνει σε 0, άρα διαιρείται ήδη με το 2. Εξέτασε το άθροισμα 2+□+4+0.",
+    "explanation": "2+3+4+0=9, άρα το 2.340 διαιρείται με 9 και 3. Επειδή είναι άρτιος, διαιρείται και με 6."
+  },
+  {
+    "level": 2,
+    "story": "Έχουμε τον αριθμό 4.523. Πόσες μονάδες πρέπει τουλάχιστον να ΑΦΑΙΡΕΣΟΥΜΕ, ώστε το αποτέλεσμα να διαιρείται με το 9;",
+    "labels": [
+      "Μονάδες που αφαιρούμε"
+    ],
+    "answers": [
+      "5"
+    ],
+    "hint": "Το άθροισμα ψηφίων του 4.523 είναι 14. Βρες τον πλησιέστερο μικρότερο αριθμό που διαιρείται με 9.",
+    "explanation": "4.523 − 5 = 4.518 και 4+5+1+8=18. Άρα αφαιρούμε 5 μονάδες."
+  },
+  {
+    "level": 2,
+    "story": "Ένας παραγωγός έχει 1.875 ελιές και τις μοιράζει σε δοχεία των 25, χωρίς να περισσέψει καμία. Πόσα δοχεία θα γεμίσει;",
+    "labels": [
+      "Γεμάτα δοχεία"
+    ],
+    "answers": [
+      "75"
+    ],
+    "hint": "Το 1.875 τελειώνει σε 75, άρα διαιρείται με 25. Τώρα κάνε τη διαίρεση.",
+    "explanation": "1.875 : 25 = 75. Θα γεμίσει 75 δοχεία."
+  },
+  {
+    "level": 2,
+    "story": "Ποιο ψηφίο πρέπει να μπει στη θέση □ του αριθμού 9□25, για να διαιρείται ακριβώς με το 9;",
+    "labels": [
+      "Άγνωστο ψηφίο"
+    ],
+    "answers": [
+      "2"
+    ],
+    "hint": "Άθροισε τα γνωστά ψηφία: 9+2+5=16.",
+    "explanation": "16+2=18, που διαιρείται με το 9. Ο αριθμός είναι 9.225."
+  },
+  {
+    "level": 3,
+    "story": "Βρες τον μικρότερο ΤΕΤΡΑΨΗΦΙΟ φυσικό αριθμό που διαιρείται ταυτόχρονα με το 9 και το 25.",
+    "labels": [
+      "Τετραψήφιος αριθμός"
+    ],
+    "answers": [
+      "1125"
+    ],
+    "hint": "Ξεκίνα από τους τετραψήφιους αριθμούς που τελειώνουν σε 00, 25, 50 ή 75 και έλεγξε το άθροισμα των ψηφίων.",
+    "explanation": "Ο πρώτος που ικανοποιεί και τα δύο κριτήρια είναι ο 1.125: τελειώνει σε 25 και 1+1+2+5=9."
+  },
+  {
+    "level": 3,
+    "story": "Ποιος είναι ο μικρότερος ΤΕΤΡΑΨΗΦΙΟΣ φυσικός αριθμός που διαιρείται ταυτόχρονα με 4, 9 και 25;",
+    "labels": [
+      "Τετραψήφιος αριθμός"
+    ],
+    "answers": [
+      "1800"
+    ],
+    "hint": "Για να διαιρείται και με 4 και με 25, είναι χρήσιμο να ελέγξεις αριθμούς που τελειώνουν σε 00. Έπειτα εφάρμοσε το κριτήριο του 9.",
+    "explanation": "Ο 1.800 τελειώνει σε 00 και 1+8+0+0=9, οπότε διαιρείται με 4, 25 και 9. Κανένας μικρότερος τετραψήφιος δεν ικανοποιεί και τα τρία."
+  },
+  {
+    "level": 3,
+    "story": "Ο αριθμός 1□70 πρέπει να διαιρείται ταυτόχρονα με το 6 και το 9. Ποιο ψηφίο λείπει;",
+    "labels": [
+      "Άγνωστο ψηφίο"
+    ],
+    "answers": [
+      "1"
+    ],
+    "hint": "Ο αριθμός είναι ήδη άρτιος. Για το 9, μελέτησε το 1+□+7+0.",
+    "explanation": "1+1+7+0=9. Ο αριθμός 1.170 διαιρείται με 9 και είναι άρτιος, συνεπώς διαιρείται και με 6."
+  },
+  {
+    "level": 3,
+    "story": "Σε μια σχολική γιορτή βρίσκονται 405 μαθητές. Θέλουμε να σχηματίσουμε μόνο πλήρεις ομάδες των 6. Πόσοι μαθητές πρέπει να προστεθούν τουλάχιστον;",
+    "labels": [
+      "Επιπλέον μαθητές"
+    ],
+    "answers": [
+      "3"
+    ],
+    "hint": "Ο αμέσως επόμενος αριθμός μετά το 405 που διαιρείται με το 6 είναι άρτιος και έχει άθροισμα ψηφίων πολλαπλάσιο του 3.",
+    "explanation": "405+3=408. Το 408 είναι άρτιο και 4+0+8=12, άρα διαιρείται με το 6."
+  },
+  {
+    "level": 3,
+    "story": "Μια αποθήκη έχει 1.240 τετράδια. Πόσα επιπλέον χρειάζεται τουλάχιστον για να χωριστούν όλα σε δέματα των 9;",
+    "labels": [
+      "Επιπλέον τετράδια"
+    ],
+    "answers": [
+      "2"
+    ],
+    "hint": "Το άθροισμα των ψηφίων του 1.240 είναι 7.",
+    "explanation": "1.240+2=1.242 και 1+2+4+2=9, άρα απαιτούνται 2 τετράδια."
+  },
+  {
+    "level": 3,
+    "story": "Οργανωτές έχουν 2.340 προσκλήσεις. Πόσες ακόμη χρειάζεται τουλάχιστον να εκτυπώσουν ώστε το συνολικό πλήθος να διαιρείται ΚΑΙ με το 9 ΚΑΙ με το 25;",
+    "labels": [
+      "Επιπλέον προσκλήσεις"
+    ],
+    "answers": [
+      "135"
+    ],
+    "hint": "Δοκίμασε διαδοχικά μεγαλύτερους αριθμούς που τελειώνουν σε 00, 25, 50 ή 75. Έπειτα έλεγξε ποιος έχει άθροισμα ψηφίων πολλαπλάσιο του 9.",
+    "explanation": "Ο πρώτος τέτοιος αριθμός μετά το 2.340 είναι το 2.475: τελειώνει σε 75 και 2+4+7+5=18. Χρειάζονται 2.475−2.340=135 προσκλήσεις."
+  }
+];
+const $=id=>document.getElementById(id);
+const levelNames={1:'Εφαρμόζω τα κριτήρια',2:'Συμπληρώνω και ανακαλύπτω',3:'Σκέφτομαι συνδυαστικά'};
+let index=0,points=0,done=0,attempts=0,locked=false,firstTry=0;
+function normalizeNumber(s){return String(s).trim().replace(/[\s.\u00a0]/g,'').replace(/−/g,'-');}
+function render(){
+  const q=QUESTIONS[index]; attempts=0;locked=false;
+  $('counter').textContent=`Πρόβλημα ${index+1} από ${QUESTIONS.length}`;
+  $('level').textContent=`Επίπεδο ${q.level} · ${levelNames[q.level]}`;
+  $('story').textContent=q.story;
+  $('fields').replaceChildren();
+  q.labels.forEach((label,i)=>{
+    const wrapper=document.createElement('div');
+    const lab=document.createElement('label');lab.className='fieldlabel';lab.htmlFor=`a${i}`;lab.textContent=label;
+    const input=document.createElement('input');input.className='answer';input.id=`a${i}`;input.type='text';input.inputMode='numeric';input.autocomplete='off';input.spellcheck=false;input.placeholder='Γράψε έναν αριθμό';input.setAttribute('aria-label',label);
+    input.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();checkAnswer();}});
+    wrapper.append(lab,input);$('fields').append(wrapper);
+  });
+  $('hint').classList.add('hidden');$('hint').textContent=q.hint;
+  $('feedback').className='feedback hidden';$('feedback').replaceChildren();
+  $('check').disabled=false;$('check').classList.remove('hidden');
+  $('showHint').disabled=false;$('showHint').classList.remove('hidden');
+  $('next').classList.add('hidden');$('next').textContent=index===QUESTIONS.length-1?'Δες τα αποτελέσματά μου →':'Επόμενο πρόβλημα →';
+  updateStats();
+  const first=$('a0');if(first)first.focus({preventScroll:true});
+}
+function updateStats(){
+  $('score').textContent=`Βαθμοί: ${points} / ${QUESTIONS.length*2}`;
+  $('finished').textContent=`Ολοκληρώθηκαν: ${done} / ${QUESTIONS.length}`;
+  $('progress').style.width=`${done*100/QUESTIONS.length}%`;
+}
+function message(cls,title,explanation=''){
+  const el=$('feedback');el.className=`feedback ${cls}`;el.replaceChildren();
+  const strong=document.createElement('strong');strong.textContent=title;el.append(strong);
+  if(explanation){let p=document.createElement('div');p.className='explanation';p.textContent=explanation;el.append(p);}
+}
+function finishQuestion(correct){
+  locked=true;done++;
+  const gained=correct?(attempts===1?2:1):0;
+  if(correct){points+=gained;if(attempts===1)firstTry++;}
+  document.querySelectorAll('.answer').forEach(x=>x.disabled=true);
+  $('check').classList.add('hidden');$('showHint').classList.add('hidden');$('next').classList.remove('hidden');
+  updateStats();
+}
+function checkAnswer(){
+  if(locked)return;
+  const inputs=[...document.querySelectorAll('.answer')], q=QUESTIONS[index];
+  const user=inputs.map(el=>normalizeNumber(el.value));
+  if(user.some(x=>x===''||!/^\d+$/.test(x))){message('neutral','Γράψε έναν φυσικό αριθμό σε κάθε πεδίο.');return;}
+  attempts++;
+  const isCorrect=user.every((v,i)=>BigInt(v)===BigInt(q.answers[i]));
+  if(isCorrect){finishQuestion(true);message('ok',`Μπράβο! Σωστή απάντηση. +${attempts===1?2:1} ${attempts===1?'βαθμοί':'βαθμός'}.`,q.explanation);return;}
+  if(attempts>=3){finishQuestion(false);message('no',`Η σωστή απάντηση είναι: ${q.answers.join(' και ')}.`,q.explanation);return;}
+  message('no',`Δεν είναι σωστό ακόμη. Προσπάθεια ${attempts}/3.`,attempts===2?'Μπορείς να δεις την υπόδειξη πριν δοκιμάσεις άλλη μια φορά.':'Έλεγξε ξανά τα κριτήρια διαιρετότητας.');
+  const bad=inputs[0];if(bad)bad.focus();
+}
+function showSummary(){
+  $('game').classList.add('hidden');const panel=$('summary');panel.classList.remove('hidden');panel.replaceChildren();
+  const wrap=document.createElement('div');wrap.className='finish';
+  const title=document.createElement('h2');title.textContent=points>=30?'Εξαιρετική δουλειά! 🎉':points>=19?'Πολύ καλή προσπάθεια! ⭐':'Ολοκλήρωσες την αποστολή! 🏁';
+  const big=document.createElement('div');big.className='bigscore';big.textContent=`${points} / 36`;
+  const txt=document.createElement('p');txt.textContent=`Έλυσες ${QUESTIONS.length} προβλήματα. Στα ${firstTry} βρήκες τη σωστή απάντηση με την πρώτη προσπάθεια. Μπορείς να παίξεις ξανά για να βελτιώσεις τη βαθμολογία σου.`;
+  const restart=document.createElement('button');restart.className='primary';restart.type='button';restart.textContent='↻ Παίζω ξανά';restart.addEventListener('click',reset);
+  wrap.append(title,big,txt,restart);panel.append(wrap);updateStats();panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function reset(){index=0;points=0;done=0;firstTry=0;locked=false;attempts=0;$('summary').classList.add('hidden');$('game').classList.remove('hidden');render();window.scrollTo({top:0,behavior:'smooth'});}
+$('check').addEventListener('click',checkAnswer);
+$('showHint').addEventListener('click',()=>{$('hint').classList.toggle('hidden');});
+$('next').addEventListener('click',()=>{if(!locked)return;if(index+1>=QUESTIONS.length){showSummary();return;}index++;render();$('game').scrollIntoView({behavior:'smooth',block:'start'});});
+render();
+</script>
+</body>
+</html>
